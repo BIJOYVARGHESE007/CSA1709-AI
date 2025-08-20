@@ -1,0 +1,25 @@
+def vacuum_cleaner(environment, start):
+    actions = []
+    current = start
+    for i in range(len(environment)):
+        if environment[current] == 1:
+            actions.append(f"Clean at {current}")
+            environment[current] = 0
+        else:
+            actions.append(f"No cleaning needed at {current}")
+        if current < len(environment) - 1:
+            actions.append("Move Right")
+            current += 1
+        elif current > 0:
+            actions.append("Move Left")
+            current -= 1
+    return actions, environment
+
+if __name__ == "__main__":
+    environment = [1, 0]  
+    start_position = 0    
+    actions, final_env = vacuum_cleaner(environment, start_position)
+    print("Actions taken:")
+    for a in actions:
+        print(a)
+    print("Final environment state:", final_env)
