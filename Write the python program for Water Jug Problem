@@ -1,0 +1,49 @@
+from collections import deque
+
+def water_jug_bfs(capacity_a, capacity_b, target):
+    visited = set()
+    queue = deque()
+    
+    queue.append((0, 0, []))  # (jugA, jugB, path)
+
+    while queue:
+        a, b, path = queue.popleft()
+
+        # If target is reached
+        if a == target or b == target:
+            path.append((a, b))
+            return path
+
+        if (a, b) in visited:
+            continue
+        visited.add((a, b))
+
+        next_states = [
+            (capacity_a, b),  # Fill jug A
+            (a, capacity_b),  # Fill jug B
+            (0, b),           # Empty jug A
+            (a, 0),           # Empty jug B
+            # Pour A -> B
+            (a - min(a, capacity_b - b), b + min(a, capacity_b - b)),
+            # Pour B -> A
+            (a + min(b, capacity_a - a), b - min(b, capacity_a - a)),
+        ]
+
+        for state in next_states:
+            queue.append((state[0], state[1], path + [(a, b)]))
+
+    return None  # No solution
+
+# Example usage
+if __name__ == "__main__":
+    cap_a = 4   # Capacity of jug A
+    cap_b = 3   # Capacity of jug B
+    target = 2  # Goal: measure 2 liters
+
+    solution = water_jug_bfs(cap_a, cap_b, target)
+    if solution:
+        print("Solution found! Steps:")
+        for step in solution:
+            print(step)
+    else:
+        print("No solution exists.")
