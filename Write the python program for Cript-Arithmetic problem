@@ -1,0 +1,35 @@
+import itertools
+
+def solve_cryptarithmetic(words, result):
+    # Extract unique characters
+    unique_chars = set("".join(words) + result)
+    if len(unique_chars) > 10:
+        print("Too many unique letters (max 10 allowed).")
+        return
+
+    unique_chars = list(unique_chars)
+
+    # Generate digit assignments (permutations)
+    for perm in itertools.permutations(range(10), len(unique_chars)):
+        char_digit = dict(zip(unique_chars, perm))
+
+        if any(char_digit[word[0]] == 0 for word in words + [result]):
+            continue
+
+        word_values = [int("".join(str(char_digit[c]) for c in word)) for word in words]
+        result_value = int("".join(str(char_digit[c]) for c in result))
+
+        if sum(word_values) == result_value:
+            print("Solution found!")
+            for k, v in char_digit.items():
+                print(f"{k} = {v}")
+            print(f"{' + '.join(map(str, word_values))} = {result_value}")
+            return
+
+    print("No solution exists.")
+
+# Example usage
+if __name__ == "__main__":
+    words = ["SEND", "MORE"]
+    result = "MONEY"
+    solve_cryptarithmetic(words, result)
