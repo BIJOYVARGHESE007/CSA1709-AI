@@ -1,0 +1,39 @@
+def is_valid(node, color, assignment, graph):
+    for neighbor in graph[node]:
+        if neighbor in assignment and assignment[neighbor] == color:
+            return False
+    return True
+
+def backtrack(assignment, graph, colors):
+    if len(assignment) == len(graph):
+        return assignment
+
+    node = next(region for region in graph if region not in assignment)
+
+    for color in colors:
+        if is_valid(node, color, assignment, graph):
+            assignment[node] = color
+            result = backtrack(assignment, graph, colors)
+            if result:
+                return result
+            assignment.pop(node)
+    return None
+
+def map_coloring(graph, colors):
+    return backtrack({}, graph, colors)
+
+if __name__ == "__main__":
+    graph = {
+        "WA": ["NT", "SA"],
+        "NT": ["WA", "SA", "Q"],
+        "SA": ["WA", "NT", "Q", "NSW", "V"],
+        "Q": ["NT", "SA", "NSW"],
+        "NSW": ["Q", "SA", "V"],
+        "V": ["SA", "NSW"],
+        "T": []
+    }
+    colors = ["Red", "Green", "Blue"]
+    solution = map_coloring(graph, colors)
+    print("Map Coloring Solution:")
+    for region, color in solution.items():
+        print(region, ":", color)
