@@ -1,0 +1,9 @@
+% Facts: name(Name, DOB).
+person(john, '12-05-1995').
+person(mary, '23-11-1998').
+person(peter, '04-07-2000').
+person(linda, '15-02-1992').
+person(david, '30-09-1997').
+
+% Rule to get DOB by Name
+dob(Name, Date) :- person(Name, Date).
