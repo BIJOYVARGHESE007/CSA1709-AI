@@ -1,0 +1,31 @@
+from sklearn import tree
+
+X = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 1],
+    [1, 0, 0, 0],
+    [2, 1, 0, 0],
+    [2, 2, 1, 0],
+    [2, 2, 1, 1],
+    [1, 2, 1, 1],
+    [0, 1, 0, 0],
+    [0, 2, 1, 0],
+    [2, 1, 1, 0],
+    [0, 1, 1, 1],
+    [1, 1, 0, 1],
+    [1, 0, 1, 0],
+    [2, 1, 0, 1]
+]
+
+y = [0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0]
+
+clf = tree.DecisionTreeClassifier(criterion="entropy")
+clf = clf.fit(X, y)
+
+test = [[0, 2, 0, 1]]
+prediction = clf.predict(test)
+
+print("Prediction for test sample:", "Play Tennis" if prediction[0] == 1 else "Don't Play Tennis")
+
+from sklearn.tree import export_text
+print(export_text(clf, feature_names=["Outlook", "Temperature", "Humidity", "Wind"]))
