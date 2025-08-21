@@ -1,0 +1,32 @@
+% Facts: student(StudentName, SubjectCode).
+student(john, cs101).
+student(mary, cs101).
+student(peter, cs102).
+student(linda, cs103).
+student(david, cs102).
+
+% Facts: teacher(TeacherName, SubjectCode).
+teacher(smith, cs101).
+teacher(jones, cs102).
+teacher(clark, cs103).
+
+% Facts: subject(SubjectCode, SubjectName).
+subject(cs101, 'Artificial Intelligence').
+subject(cs102, 'Computer Networks').
+subject(cs103, 'Database Systems').
+
+% Rule: find Teacher for a Student
+student_teacher(Student, Teacher) :-
+    student(Student, Code),
+    teacher(Teacher, Code).
+
+% Rule: find Subject for a Student
+student_subject(Student, Subject) :-
+    student(Student, Code),
+    subject(Code, Subject).
+
+% Rule: find Teacher and Subject for a Student
+student_teacher_subject(Student, Teacher, Subject) :-
+    student(Student, Code),
+    teacher(Teacher, Code),
+    subject(Code, Subject).
