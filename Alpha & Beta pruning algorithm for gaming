@@ -1,0 +1,31 @@
+import math
+
+def alphabeta(node, depth, alpha, beta, maximizingPlayer, values, index=0):
+    if depth == 0 or index >= len(values):
+        return values[index]
+
+    if maximizingPlayer:
+        maxEval = -math.inf
+        for i in range(2):  # binary tree
+            eval = alphabeta(node*2+i, depth-1, alpha, beta, False, values, index*2+i)
+            maxEval = max(maxEval, eval)
+            alpha = max(alpha, eval)
+            if beta <= alpha:
+                break
+        return maxEval
+    else:
+        minEval = math.inf
+        for i in range(2):  # binary tree
+            eval = alphabeta(node*2+i, depth-1, alpha, beta, True, values, index*2+i)
+            minEval = min(minEval, eval)
+            beta = min(beta, eval)
+            if beta <= alpha:
+                break
+        return minEval
+
+if __name__ == "__main__":
+    values = [3, 5, 6, 9, 1, 2, 0, -1]  # leaf node values
+    depth = 3  # height of tree
+    print("Game tree leaf values:", values)
+    best_value = alphabeta(0, depth, -math.inf, math.inf, True, values)
+    print("The optimal value is:", best_value)
