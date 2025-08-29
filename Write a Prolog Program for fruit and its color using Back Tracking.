@@ -1,0 +1,16 @@
+% fruit(Fruit, Color).
+
+fruit(apple, red).
+fruit(apple, green).
+fruit(banana, yellow).
+fruit(grape, green).
+fruit(grape, purple).
+fruit(orange, orange).
+fruit(mango, yellow).
+fruit(mango, green).
+fruit(blueberry, blue).
+fruit(watermelon, green).
+
+% Rule to get fruit color
+get_color(Fruit, Color) :-
+    fruit(Fruit, Color).
