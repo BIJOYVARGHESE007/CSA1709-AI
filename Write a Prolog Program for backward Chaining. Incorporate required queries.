@@ -1,0 +1,33 @@
+% --------------------------
+% Knowledge Base (Facts)
+% --------------------------
+fact(sunny).
+fact(warm).
+fact(rainy).
+
+% --------------------------
+% Inference Rules
+% --------------------------
+% rule(Conclusion, [Conditions])
+rule(go_to_beach, [sunny, warm]).
+rule(go_for_walk, [sunny, cold]).
+rule(take_umbrella, [rainy]).
+rule(stay_home, [snowy]).
+
+% --------------------------
+% Backward Chaining Engine
+% --------------------------
+prove(Goal) :-
+    fact(Goal),                         % if Goal is a known fact
+    write(Goal), write(' is a known fact'), nl.
+
+prove(Goal) :-
+    rule(Goal, Conditions),             % if Goal can be concluded by a rule
+    prove_all(Conditions),
+    write('Therefore, '), write(Goal), nl.
+
+% prove all conditions in a rule
+prove_all([]).
+prove_all([H|T]) :-
+    prove(H),
+    prove_all(T).
