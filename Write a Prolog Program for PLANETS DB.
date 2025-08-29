@@ -1,0 +1,26 @@
+% PLANETS DATABASE
+
+% planet(Name, OrderFromSun, Type, SizeCategory).
+
+planet(mercury, 1, terrestrial, small).
+planet(venus,   2, terrestrial, small).
+planet(earth,   3, terrestrial, medium).
+planet(mars,    4, terrestrial, small).
+planet(jupiter, 5, gas_giant,   large).
+planet(saturn,  6, gas_giant,   large).
+planet(uranus,  7, ice_giant,   large).
+planet(neptune, 8, ice_giant,   large).
+
+% Example Rules
+is_inner_planet(Name) :-
+    planet(Name, Order, _, _),
+    Order =< 4.
+
+is_outer_planet(Name) :-
+    planet(Name, Order, _, _),
+    Order >= 5.
+
+same_type(Planet1, Planet2) :-
+    planet(Planet1, _, Type, _),
+    planet(Planet2, _, Type, _),
+    Planet1 \= Planet2.
