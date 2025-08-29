@@ -1,0 +1,22 @@
+% Define vowels
+vowel(a).
+vowel(e).
+vowel(i).
+vowel(o).
+vowel(u).
+
+% Main predicate: count_vowels(String, Count)
+count_vowels([], 0).  % base case
+
+count_vowels([H|T], Count) :-
+    vowel(H), !,                 % if head is a vowel
+    count_vowels(T, Rest),
+    Count is Rest + 1.
+
+count_vowels([_|T], Count) :-    % if head is not a vowel
+    count_vowels(T, Count).
+
+% Helper to convert atom -> list of chars -> count vowels
+count_vowels_in_word(Word, Count) :-
+    atom_chars(Word, CharList),
+    count_vowels(CharList, Count).
