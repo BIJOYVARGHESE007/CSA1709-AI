@@ -1,0 +1,50 @@
+% Representation of state:
+% state(MonkeyPosition, MonkeyOnBox?, BoxPosition, HasBanana?)
+
+% Monkey starts at door, box is at window, monkey not on box, no banana
+initial_state(state(at_door, on_floor, at_window, has_not)).
+
+% Goal: Monkey has the banana
+goal_state(state(_, _, _, has)).
+
+% Actions:
+% 1. Monkey walks from one place to another
+move(state(at_door, on_floor, Box, has_not),
+     walk_door_to_window,
+     state(at_window, on_floor, Box, has_not)).
+
+move(state(at_window, on_floor, Box, has_not),
+     walk_window_to_door,
+     state(at_door, on_floor, Box, has_not)).
+
+move(state(at_door, on_floor, Box, has_not),
+     walk_door_to_middle,
+     state(at_middle, on_floor, Box, has_not)).
+
+move(state(at_window, on_floor, Box, has_not),
+     walk_window_to_middle,
+     state(at_middle, on_floor, Box, has_not)).
+
+% 2. Monkey pushes box from one place to another (only if at same location)
+move(state(Pos, on_floor, Pos, has_not),
+     push_box(Pos, NewPos),
+     state(NewPos, on_floor, NewPos, has_not)) :-
+     (Pos = at_door, NewPos = at_middle ;
+      Pos = at_window, NewPos = at_middle).
+
+% 3. Monkey climbs onto box
+move(state(Pos, on_floor, Pos, has_not),
+     climb_box,
+     state(Pos, on_box, Pos, has_not)).
+
+% 4. Monkey grasps banana (only if at middle, on box)
+move(state(at_middle, on_box, at_middle, has_not),
+     grasp,
+     state(at_middle, on_box, at_middle, has)).
+
+% Plan: sequence of moves leading to goal
+plan(State, []) :- goal_state(State).
+
+plan(State, [Action | Rest]) :-
+    move(State, Action, NewState),
+    plan(NewState, Rest).
