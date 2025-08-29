@@ -1,0 +1,13 @@
+% match pattern against a list
+
+% 1. Empty pattern matches empty list
+match([], []).
+
+% 2. Pattern with variables matches corresponding list elements
+match([P|Pt], [X|Xt]) :-
+    P = X,                % check if head matches
+    match(Pt, Xt).        % recursively check rest
+
+% 3. Wildcard "_" matches anything
+match([_|Pt], [_|Xt]) :-
+    match(Pt, Xt).
