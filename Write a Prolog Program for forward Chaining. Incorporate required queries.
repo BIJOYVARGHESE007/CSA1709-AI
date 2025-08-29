@@ -1,0 +1,39 @@
+% --------------------------
+% Knowledge Base (Facts)
+% --------------------------
+fact(sunny).
+fact(warm).
+
+% --------------------------
+% Inference Rules
+% --------------------------
+rule([sunny, warm], go_to_beach).
+rule([sunny, cold], go_for_walk).
+rule([rainy], take_umbrella).
+rule([snowy], stay_home).
+
+% --------------------------
+% Forward Chaining Engine
+% --------------------------
+
+forward_chain :-
+    new_fact(F),
+    \+ fact(F),       % if F is not already a fact
+    assert(fact(F)),  % add it to knowledge base
+    write('Derived: '), write(F), nl,
+    forward_chain.    % continue chaining
+
+forward_chain.  % stop when no new fact
+
+% --------------------------
+% Derive new fact from rules
+% --------------------------
+new_fact(F) :-
+    rule(Conditions, F),
+    all_true(Conditions).
+
+% Check if all conditions in rule are facts
+all_true([]).
+all_true([H|T]) :-
+    fact(H),
+    all_true(T).
