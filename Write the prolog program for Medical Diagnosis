@@ -1,0 +1,41 @@
+% ----- Symptoms of diseases -----
+disease(flu) :-
+    symptom(fever),
+    symptom(cough),
+    symptom(sore_throat),
+    symptom(runny_nose).
+
+disease(cold) :-
+    symptom(runny_nose),
+    symptom(sneezing),
+    symptom(mild_cough).
+
+disease(malaria) :-
+    symptom(fever),
+    symptom(chills),
+    symptom(sweating),
+    symptom(headache).
+
+disease(typhoid) :-
+    symptom(fever),
+    symptom(abdominal_pain),
+    symptom(loss_of_appetite),
+    symptom(headache).
+
+disease(covid19) :-
+    symptom(fever),
+    symptom(cough),
+    symptom(shortness_of_breath),
+    symptom(loss_of_taste).
+
+% ----- Ask user about symptoms dynamically -----
+ask(Question) :-
+    write('Do you have '), write(Question), write('? (yes/no): '),
+    read(Response),
+    (Response == yes -> assert(symptom(Question)) ; fail).
+
+% ----- Start diagnosis -----
+diagnose :-
+    retractall(symptom(_)),  % clear previous session
+    (   (disease(D), write('You may have: '), write(D), nl, fail)
+    ;   write('Diagnosis complete.'), nl).
