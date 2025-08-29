@@ -1,0 +1,37 @@
+<!-- Title Tag is added in WordPress automatically from Post Title -->
+<title>My First Web Blog - Demonstrating HTML Tags</title>
+
+<h1>Welcome to My Web Blog</h1>
+<h2>About This Blog</h2>
+<p>This blog is created to demonstrate the use of basic HTML tags inside WordPress.</p>
+
+<!-- Anchor Tag Example -->
+<p>Visit my <a href="https://www.wordpress.org" target="_blank" title="Go to WordPress Official Site">WordPress Homepage</a></p>
+
+<!-- Strong and Emphasis -->
+<p><strong>This text is bold</strong> and <em>this text is italic</em>.</p>
+
+<!-- Ordered and Unordered Lists -->
+<h3>Favorite Programming Languages:</h3>
+<ul>
+  <li>Python</li>
+  <li>Prolog</li>
+  <li>JavaScript</li>
+</ul>
+
+<h3>Steps to Create Blog:</h3>
+<ol>
+  <li>Install WordPress</li>
+  <li>Create a Post</li>
+  <li>Add HTML Content</li>
+  <li>Publish the Blog</li>
+</ol>
+
+<!-- Image Tag -->
+<h3>Sample Image:</h3>
+<img src="https://via.placeholder.com/250" alt="Sample Image" />
+
+<!-- Horizontal Rule -->
+<hr />
+
+<p>End of demonstration. Thank you for visiting!</p>
